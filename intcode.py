@@ -3,7 +3,7 @@
 def popleft(l):
     ret = l[0]
     l = l[1:]
-    return ret
+    return ret, l
 
 class IntCode(object):
     def __init__(self, prog, inputs=None):
@@ -16,7 +16,6 @@ class IntCode(object):
     def execute(self):
         self.out_changed = False
         while not self.done and not self.out_changed:
-            print(self.prog)
             opcode_and_modes = [0 for i in range(5)] + list(map(int, str(self.prog[self.point]))) # handle missing zeros hack..
             modes = opcode_and_modes[:-2]
             opcode = int(''.join([str(i) for i in opcode_and_modes[-2:]]))
@@ -46,7 +45,7 @@ class IntCode(object):
             self.point += 1
 
         elif opcode == 3:
-            in_1 = popleft(self.inputs)
+            in_1, self.inputs = popleft(self.inputs)
             self.prog[self.prog[self.point]] = in_1
             self.point += 1
 
@@ -89,7 +88,7 @@ class IntCode(object):
             self.halt()
 
         else:
-            print('Unknown opcode ' + opcode)
+            print('Unknown opcode ' + str(opcode))
             self.halt()
 
 
