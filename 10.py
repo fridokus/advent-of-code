@@ -64,6 +64,51 @@ class Map():
                 seen_asteroids += seen_here
         self.seen_map[h][w] = seen_asteroids
 
+    def place_base(self):
+        max_per_row = list(map(max, self.seen_map))
+        indices_of_max_per_row = [self.seen_map[i].index(max_per_row[i]) for i in range(len(max_per_row))]
+        index_of_max_y = max_per_row.index(max(max_per_row))
+        index_of_max_x = indices_of_max_per_row[index_of_max_y]
+        self.base = (index_of_max_y, index_of_max_x)
+
+    def move_target(self):
+        if self.target[0] == 0:
+            self.target[1] += 1
+            if self.target[1] > self.w:
+                self.target[0] = 1
+                self.target[1] = self.w
+        elif self.target[0] == self.h:
+            self.target[1] -= 1
+            if self.target[1] < 0:
+                self.target[0] = self.h - 1
+                self.target[1] = 0
+        elif self.target[1] == self.w:
+            self.target[0] += 1
+        elif self.target[1] == 0:
+            self.target[0] -= 1
+
+    def vaporize_all_asteroids(self):
+        self.target = [0, self.base[1]]
+        self.kill_count = 0
+        while self.kill_count < 200:
+            dy = abs(self.target[0] - self.base[0])
+            dx = abs(self.target[1] - self.base[1])
+            divisor = gcd(dx, dy)
+            step_y = (self.target[0] - self.base[0]) // divisor
+            step_x = (self.target[1] - self.base[1]) // divisor
+            y = self.base[0] + step_y
+            x = self.base[1] + step_x
+            while x != self.target[1] or y != self.target[0]:
+                if self.map[y][x]:
+                    self.map[y][x] = 0
+                    self.kill_count += 1
+                    if self.kill_count == 200:
+                        print('200th kill: ' + str(y) + ',' + str(x))
+                    break
+                y += step_y
+                x += step_x
+            self.move_target()
+
 
 # f = open('test10.in', 'r')
 f = open('10.in', 'r')
@@ -71,8 +116,9 @@ m_raw = f.readlines()
 m = Map(m_raw)
 
 m.calculate_all_seen_asteroids()
-print(m.seen_map)
 max_seen = max([max(row) for row in m.seen_map])
 print(max_seen)
+m.place_base()
+m.vaporize_all_asteroids()
 
 # b
