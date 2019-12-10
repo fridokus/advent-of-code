@@ -1,13 +1,8 @@
 #!/usr/bin/python3
 
-import time
-
 def popleft(l):
-    print(l)
     ret = l[0]
     l = l[1:]
-    print(l)
-    print(ret)
     return ret, l
 
 class IntCode(object):
@@ -50,8 +45,11 @@ class IntCode(object):
             self.point += 1
 
         elif opcode == 3:
-            in_1, self.inputs = popleft(self.inputs)
-            time.sleep(1)
+            try:
+                in_1, self.inputs = popleft(self.inputs)
+            except IndexError:
+                self.point -= 1
+                raise
             self.prog[self.prog[self.point]] = in_1
             self.point += 1
 
