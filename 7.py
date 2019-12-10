@@ -18,7 +18,7 @@ for phases in phases_iter:
             try:
                 while not computer.done:
                     computer.execute()
-            except IndexError:
+            except intcode.InputError:
                 pass
             next_input = computer.out
 

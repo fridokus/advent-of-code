@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+class InputError(Exception):
+    pass
+
 def popleft(l):
     ret = l[0]
     l = l[1:]
@@ -49,7 +52,7 @@ class IntCode(object):
                 in_1, self.inputs = popleft(self.inputs)
             except IndexError:
                 self.point -= 1
-                raise
+                raise InputError
             self.prog[self.prog[self.point]] = in_1
             self.point += 1
 
