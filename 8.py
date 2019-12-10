@@ -32,6 +32,16 @@ class Image(object):
         self.num_2 = self.counts_per_layer[self.min_zeros_layer][2]
         self.product_1_2 = self.num_1 * self.num_2
 
+    def merge_layers(self):
+        self.merged_image = [[2 for i in range(self.width)] for j in range(self.height)]
+        for layer in self.decoded_image:
+            for h in range(self.height):
+                for w in range(self.width):
+                    pixel = layer[h][w]
+                    if pixel != 2 and self.merged_image[h][w] == 2:
+                        self.merged_image[h][w] = pixel
+
+
 raw_image = '123456789012'
 image = Image(raw_image, 3, 2)
 image.decode_image()
@@ -43,11 +53,14 @@ raw_image = f.readline().strip('\n')
 
 image = Image(raw_image, 25, 6)
 image.decode_image()
-print(image.decoded_image)
 image.count_pixels()
 print(image.product_1_2)
 
 
 #b
 
+image.merge_layers()
+
+for i in image.merged_image:
+    print(i)
 
