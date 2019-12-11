@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import time
+
 def gcd(x, y):
     if not x:
         return y
@@ -70,36 +72,53 @@ class Map():
         index_of_max_y = max_per_row.index(max(max_per_row))
         index_of_max_x = indices_of_max_per_row[index_of_max_y]
         self.base = (index_of_max_y, index_of_max_x)
+        self.map[self.base[0]][self.base[1]] = 2
 
-    def move_target(self):
-        if self.target[0] == 0:
-            self.target[1] += 1
-            if self.target[1] > self.w:
-                self.target[0] = 1
-                self.target[1] = self.w
-        elif self.target[0] == self.h:
-            self.target[1] -= 1
-            if self.target[1] < 0:
-                self.target[0] = self.h - 1
-                self.target[1] = 0
-        elif self.target[1] == self.w:
-            self.target[0] += 1
-        elif self.target[1] == 0:
-            self.target[0] -= 1
+    def calculate_angles(self):
+        dydx_set = set()
+        for i in range(self.h):
+            for j in range(self.w):
+                if j == self.base[1]:
+                    continue
+                dydx_set.add((i - self.base[0]) / (j - self.base[1]))
+        self.target_list = []
+        self.target_list.append((-100, 0)) # first target straight above 0
+        dydx_list = sorted(list(dydx_set))
+        print(dydx_list)
+        for dydx in dydx_list:
+            x = 0
+            y = .1
+            while (y % 1) != 0:
+                x += 1
+                y = x * dydx
+            target = (int(100*y), 100*x)
+            self.target_list.append(target)
+        print(self.target_list)
+        for i in self.map:
+            print(i)
+        print()
+        print()
+        self.target_list += [(-tup[0], -tup[1]) for tup in self.target_list]
+        self.target_list = [(tup[0] + self.base[0], tup[1] + self.base[1]) for tup in self.target_list]
 
     def vaporize_all_asteroids(self):
-        self.target = [0, self.base[1]]
+        target_index = 0
         self.kill_count = 0
         while self.kill_count < 200:
-            dy = abs(self.target[0] - self.base[0])
-            dx = abs(self.target[1] - self.base[1])
+            target = self.target_list[target_index]
+            dy = abs(target[0] - self.base[0])
+            dx = abs(target[1] - self.base[1])
             divisor = gcd(dx, dy)
-            step_y = (self.target[0] - self.base[0]) // divisor
-            step_x = (self.target[1] - self.base[1]) // divisor
+            step_y = (target[0] - self.base[0]) // divisor
+            step_x = (target[1] - self.base[1]) // divisor
             y = self.base[0] + step_y
             x = self.base[1] + step_x
-            while x != self.target[1] or y != self.target[0]:
+            while (x != target[1] or y != target[0]) and self.w > x >= 0 and self.h > y >= 0:
                 if self.map[y][x]:
+                    # for i in self.map:
+                    #     print(i)
+                    # print()
+                    # time.sleep(1)
                     self.map[y][x] = 0
                     self.kill_count += 1
                     if self.kill_count == 200:
@@ -107,11 +126,15 @@ class Map():
                     break
                 y += step_y
                 x += step_x
-            self.move_target()
+            target_index += 1
+            if target_index == len(self.target_list):
+                target_index = 0
 
 
 # f = open('test10.in', 'r')
 f = open('10.in', 'r')
+# f = open('test10_2.in', 'r')
+# f = open('test10_3.in', 'r')
 m_raw = f.readlines()
 m = Map(m_raw)
 
@@ -119,6 +142,7 @@ m.calculate_all_seen_asteroids()
 max_seen = max([max(row) for row in m.seen_map])
 print(max_seen)
 m.place_base()
+m.calculate_angles()
 m.vaporize_all_asteroids()
 
 # b
