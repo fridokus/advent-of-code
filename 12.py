@@ -2,6 +2,21 @@
 
 from itertools import combinations
 
+def compute_lcm(x, y):
+   # choose the greater number
+   if x > y:
+       greater = x
+   else:
+       greater = y
+   while(True):
+       if((greater % x == 0) and (greater % y == 0)):
+           lcm = greater
+           break
+       greater += 1
+   return lcm
+num1 = 54
+num2 = 24
+
 class Moon():
     def __init__(self, coords):
         self.coords = coords
@@ -52,11 +67,56 @@ coords_list = [
         [5, 9, 6]
         ]
 
-system = System(coords_list)
+coords_list = [
+        [-1, 0, 2],
+        [2, -10, -7],
+        [4, -8, 8],
+        [3, 5, -1]
+        ]
 
-for i in range(1000):
-    system.step()
+# system = System(coords_list)
 
-print(system.energy)
+# for i in range(1000):
+#     system.step()
+
+# print(system.energy)
 
 # b
+
+system = System(coords_list)
+
+loop_intervals = [0 for i in range(3)]
+points_visited_per_dimension = [[] for i in range(3)]
+velos_visited_per_dimension = [[] for i in range(3)]
+
+for i in range(3):
+    coords_this_dimension = tuple((moon.coords[i] for moon in system.moons))
+    velo_this_dimension = tuple((moon.velo[i] for moon in system.moons))
+    points_visited_per_dimension[i].append(coords_this_dimension)
+    velos_visited_per_dimension[i].append(velo_this_dimension)
+
+print(points_visited_per_dimension)
+print(velos_visited_per_dimension)
+
+step_counter = 0
+while not all(loop_intervals):
+    system.step()
+    step_counter += 1
+    for i in range(3):
+        if loop_intervals[i]:
+            continue
+        coords_this_dimension = tuple((moon.coords[i] for moon in system.moons))
+        velo_this_dimension = tuple((moon.velo[i] for moon in system.moons))
+        if (coords_this_dimension in points_visited_per_dimension[i]) and (velo_this_dimension in velos_visited_per_dimension[i]):
+            loop_intervals[i] = step_counter
+        else:
+            points_visited_per_dimension[i].append(coords_this_dimension)
+            velos_visited_per_dimension[i].append(velo_this_dimension)
+
+    if not step_counter % 10000:
+        print(step_counter)
+        print(loop_intervals)
+
+print(loop_intervals)
+
+
