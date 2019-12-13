@@ -33,11 +33,11 @@ class ArcadeCabinet(object):
         if tile == 4:
             ball_x = x
             if ball_x < self.paddle_x:
-                self.computer.inputs = [-1 for i in range(10)]
+                self.computer.inputs = [-1]
             elif ball_x > self.paddle_x:
-                self.computer.inputs = [1 for i in range(10)]
+                self.computer.inputs = [1]
             else:
-                self.computer.inputs = [0 for i in range(10)]
+                self.computer.inputs = [0]
             self.last_ball_x = ball_x
 
     def count_block(self):
