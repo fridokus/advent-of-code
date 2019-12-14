@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import math
 
 class Formula():
     def __init__(self, formula):
@@ -25,4 +26,28 @@ formulas = []
 for line in lines:
     formulas.append(Formula(line))
     formulas[-1].parse_formula()
+
+wanted_dict = {'FUEL': 1}
+done = False
+while not done:
+    for formula in formulas:
+        if formula.result_name in wanted_dict:
+            quantity_wanted = wanted_dict[formula.result_name]
+            quantity_given = formula.result_quantity
+            times_this_formula = int(math.ceil(quantity_wanted / quantity_given))
+            for reactant in formula.reactants:
+                if reactant in wanted_dict:
+                    wanted_dict[reactant] += formula.reactants[reactant] * times_this_formula
+                else:
+                    wanted_dict[reactant] = formula.reactants[reactant] * times_this_formula
+            del wanted_dict[formula.result_name]
+            print(wanted_dict)
+
+    done = True
+    for wanted in wanted_dict:
+        if wanted != 'ORE':
+            done = False
+
+print(wanted_dict)
+
 
