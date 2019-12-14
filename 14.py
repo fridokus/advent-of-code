@@ -29,6 +29,7 @@ for line in lines:
 
 wanted_dict = {'FUEL': 1}
 done = False
+# TODO: implement spare dict..
 while not done:
     for formula in formulas:
         if formula.result_name in wanted_dict:
