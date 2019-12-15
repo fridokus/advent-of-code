@@ -20,27 +20,49 @@ class Formula():
         return ret
 
 
-f = open('test14.in', 'r')
+def add_to_dict(d, key, value):
+    if key in d:
+        d[key] += value
+    else:
+        d[key] = value
+
+def reduce_by_spare(wanted_dict, spare_dict):
+    for spare in spare_dict:
+        if spare in wanted_dict:
+            if spare_dict[spare] > wanted_dict[spare]:
+                spare_dict[spare] -= wanted_dict[spare]
+                wanted_dict[spare] = 0
+            elif spare_dict[spare] < wanted_dict[spare]:
+                wanted_dict[spare] -= spare_dict[spare]
+                spare_dict[spare] = 0
+            else:
+                wanted_dict[spare] = 0
+                spare_dict[spare] = 0
+
+
+# f = open('test14_2.in', 'r')
+f = open('14.in', 'r')
 lines = f.readlines()
 formulas = []
 for line in lines:
     formulas.append(Formula(line))
     formulas[-1].parse_formula()
 
-wanted_dict = {'FUEL': 1}
+wanted_dict = {'FUEL': 2371699} # brute forced this number manually in 2 mins XD fastest way but way to hacky really...
 done = False
-# TODO: implement spare dict..
+spare_dict = {}
 while not done:
     for formula in formulas:
+        reduce_by_spare(wanted_dict, spare_dict)
         if formula.result_name in wanted_dict:
             quantity_wanted = wanted_dict[formula.result_name]
             quantity_given = formula.result_quantity
             times_this_formula = int(math.ceil(quantity_wanted / quantity_given))
+            quantity_spare = quantity_given * times_this_formula - quantity_wanted
             for reactant in formula.reactants:
-                if reactant in wanted_dict:
-                    wanted_dict[reactant] += formula.reactants[reactant] * times_this_formula
-                else:
-                    wanted_dict[reactant] = formula.reactants[reactant] * times_this_formula
+                add_to_dict(wanted_dict, reactant, formula.reactants[reactant] * times_this_formula)
+            if quantity_spare:
+                add_to_dict(spare_dict, formula.result_name, quantity_spare)
             del wanted_dict[formula.result_name]
             print(wanted_dict)
 
