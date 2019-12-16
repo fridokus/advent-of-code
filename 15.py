@@ -40,8 +40,9 @@ class RepairDroid(object):
             if oxygen_iteration and iteration == 2 * oxygen_iteration: # discover everything..
                 self.done = True
                 print('oxygen reached')
-            if not iteration % 10000:
-                print('10000')
+                print(self.oxygen_tank)
+            if not iteration % 100000:
+                print('100000')
 
     def get_input(self):
         return random.randint(1,4)
@@ -53,20 +54,22 @@ class RepairDroid(object):
         while not self.oxygen_tank_reached:
             iteration += 1
             rand = self.expand_rand(rand)
+            print(rand)
         print(iteration)
+
+    def get_surrounding(self, point):
+        return [tuple((point[i] + directions[j][i] for i in range(2))) for j in range(1, 5)]
 
     def expand_rand(self, rand):
         new_rand = set()
         for point in rand:
-            if point in self.traversed and not point in self.shortest_path_traversed:
-                new_rand.add(point)
-                self.shortest_path_traversed.add(point)
-            elif point == self.oxygen_tank:
-                self.oxygen_tank_reached = True
+            for surrounding_point in self.get_surrounding(point):
+                if surrounding_point in self.traversed and not surrounding_point in self.shortest_path_traversed:
+                    new_rand.add(surrounding_point)
+                    self.shortest_path_traversed.add(surrounding_point)
+                elif surrounding_point == self.oxygen_tank:
+                    self.oxygen_tank_reached = True
         return new_rand
-
-
-
 
 prog = intcode.parse_prog('15.in')
 repair_droid = RepairDroid(prog)
