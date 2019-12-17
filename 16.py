@@ -16,7 +16,7 @@ def calculate_element(n, i):
 
     return abs(ret) % 10
 
-n_str = '0303673582'
+n_str = '030367993582'
 index_message = int(n_str[:8])
 n = list(map(int, n_str))
 n_len = len(n)
@@ -34,10 +34,10 @@ phases = 100
 mat = np.diag([1 for i in range(n_len)])
 for row in range(1, n_len+1):
     mat[row-1] = np.concatenate([np.repeat(base_pattern, row) for i in range(math.ceil(n_len/row))])[1:n_len+1]
-    print(mat)
 
 print(mat)
-
-
-
-
+new_mat = mat
+np.set_printoptions(suppress=True,linewidth=5000,threshold=5000)
+for i in range(99):
+    new_mat = mat.dot(new_mat)
+    print(new_mat)
