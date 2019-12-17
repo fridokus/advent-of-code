@@ -32,17 +32,14 @@ class RepairDroid(object):
                 self.loc = potential_loc
                 if status == 2:
                     self.oxygen_tank = self.loc
-                    oxygen_iteration = iteration
+                    if not oxygen_iteration:
+                        oxygen_iteration = iteration
                 else:
                     self.traversed.add(self.loc)
             else:
                 self.wall.add(potential_loc)
-            if oxygen_iteration and iteration == 2 * oxygen_iteration: # discover everything..
+            if oxygen_iteration and iteration == 20 * oxygen_iteration: # discover everything..
                 self.done = True
-                print('oxygen reached')
-                print(self.oxygen_tank)
-            if not iteration % 100000:
-                print('100000')
 
     def get_input(self):
         return random.randint(1,4)
@@ -54,11 +51,25 @@ class RepairDroid(object):
         while not self.oxygen_tank_reached:
             iteration += 1
             rand = self.expand_rand(rand)
-            print(rand)
         print(iteration)
 
     def get_surrounding(self, point):
         return [tuple((point[i] + directions[j][i] for i in range(2))) for j in range(1, 5)]
+
+    def fill_with_oxygen(self):
+        iteration = 0
+        self.filled = False
+        rand = set([self.oxygen_tank])
+        self.shortest_path_traversed = set()
+        while not self.filled:
+            iteration += 1
+            rand = self.expand_rand(rand)
+            self.filled = True
+            for point in self.traversed:
+                if point not in self.shortest_path_traversed:
+                    self.filled = False
+                    break
+        print(iteration)
 
     def expand_rand(self, rand):
         new_rand = set()
@@ -75,5 +86,6 @@ prog = intcode.parse_prog('15.in')
 repair_droid = RepairDroid(prog)
 repair_droid.repair_loop()
 repair_droid.find_shortest_path()
+repair_droid.fill_with_oxygen()
 
 
