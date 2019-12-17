@@ -50,7 +50,7 @@ class RepairDroid(object):
     def find_shortest_path(self):
         iteration = 0
         self.oxygen_tank_reached = False
-        rand = set((0, 0))
+        rand = set([(0, 0)])
         while not self.oxygen_tank_reached:
             iteration += 1
             rand = self.expand_rand(rand)
