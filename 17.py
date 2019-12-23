@@ -25,16 +25,12 @@ class Camera(object):
                 self.scaffold.add(loc)
             elif output == 60: # left
                 self.vaccuum_robot = loc
-                print('Left')
             elif output == 62: # right
                 self.vaccuum_robot = loc
-                print('Right')
             elif output == 94: # up
                 self.vaccuum_robot = loc
-                print('Up')
             elif output == 118: # down
                 self.vaccuum_robot = loc
-                print('Down')
             loc = (loc[0] + 1, loc[1])
 
     def check_surrounding(self, point):
@@ -54,7 +50,7 @@ class Camera(object):
     def run_2(self):
         self.computer.inputs = self.main_routine + self.func_a + self.func_b + self.func_c + self.live_feed
         self.run_until_done()
-        print(self.computer.out)
+        print(self.computer.out[-1])
         if 88 in self.computer.out:
             print('ded')
 
@@ -81,5 +77,5 @@ def part_2():
     camera.live_feed = [110, 10]
     camera.run_2()
 
+part_1()
 part_2()
-
