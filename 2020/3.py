@@ -35,4 +35,3 @@ for m_y, m_x in zip(m_y_l, m_x_l):
     res2 *= crash
 
 print(res2)
-
