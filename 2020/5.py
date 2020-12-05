@@ -11,11 +11,8 @@ for line in lines:
     line = line.replace('L', '0')
     line = line.replace('B', '1')
     line = line.replace('R', '1')
-    row = int(line[:7], 2)
-    column = int(line[7:], 2)
-    rows.append(row)
-    columns.append(column)
-    seat_ids.append(row * 8 + column)
+    seat_id = int(line, 2)
+    seat_ids.append(seat_id)
 
 print(max(seat_ids))
 print(set(range(871)) - set(seat_ids))
