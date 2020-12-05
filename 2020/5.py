@@ -3,8 +3,6 @@
 with open('5.in') as f:
     lines = f.read().splitlines()
 
-rows = []
-columns = []
 seat_ids = []
 for line in lines:
     line = line.replace('F', '0')
