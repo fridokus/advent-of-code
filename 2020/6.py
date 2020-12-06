@@ -11,7 +11,7 @@ res2 = 0
 for i, group in enumerate(groups):
     intersection = unions[i]
     for individual in group.split('\n'):
-        intersection = intersection & set([i for i in individual]) if individual else intersection
+        intersection = intersection & set(list(individual)) if individual else intersection
     res2 += len(intersection)
 
 print(res2)
