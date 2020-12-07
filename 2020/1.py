@@ -5,21 +5,5 @@ with open('1.in') as f:
     lines = [int(i.strip()) for i in lines]
     l = len(lines)
 
-for i in range(l):
-    for j in range(l):
-        if lines[i] + lines[j] == 2020:
-            res1 = lines[i] * lines[j] 
-
-print(res1)
-
-
-# b
-
-
-for i in range(l):
-    for j in range(l):
-        for k in range(l):
-            if lines[i] + lines[j] + lines[k] == 2020:
-                res2 = lines[i] * lines[j] * lines[k]
-
-print(res2)
+print(max([max([x * y if x + y == 2020 else 0 for x in lines]) for y in lines]))
+print(max([max([max([x * y * z if x + y + z == 2020 else 0 for x in lines]) for y in lines]) for z in lines]))
