@@ -1,55 +1,45 @@
 #!/usr/bin/python3
+import re
 
 with open('8.in') as f:
-    code = f.read().splitlines()
+    code = re.findall('(\w+) ([+-]\d+)', f.read())
 
 class Gameboy():
     def __init__(self):
-        self.acc = 0
-        self.ptr = 0
+        self.acc, self.ptr = 0, 0
         self.executed_instructions = set()
 
     def execute(self, instruction):
-        op = instruction[:3]
-        val = int(instruction[4:])
+        self.executed_instructions.add(self.ptr)
+        op, val = instruction
 
         if op == 'nop':
             self.ptr += 1
 
         elif op == 'acc':
-            self.acc += val
+            self.acc += int(val)
             self.ptr += 1
 
         elif op == 'jmp':
-            self.ptr += val
+            self.ptr += int(val)
 
     def run_until_done(self, code):
-        while True:
-            if self.ptr in self.executed_instructions:
-                return 1
-
-            if self.ptr == len(code):
-                return 0
-
-            self.executed_instructions.add(self.ptr)
+        while self.ptr not in self.executed_instructions and self.ptr != len(code):
             self.execute(code[self.ptr])
 
+        return self.ptr != len(code)
+
 gameboy = Gameboy()
-
 gameboy.run_until_done(code)
-
 print(gameboy.acc)
 
 # b
 
 attempt_change = gameboy.executed_instructions
 
-for change_code_nr in attempt_change:
-    modified_code = [i for i in code]
-    if modified_code[change_code_nr][:3] == 'nop':
-        modified_code[change_code_nr] = 'jmp' + code[change_code_nr][3:]
-    elif modified_code[change_code_nr][:3] == 'jmp':
-        modified_code[change_code_nr] = 'nop' + code[change_code_nr][3:]
+for i in attempt_change:
+    if code[i][0] != 'acc':
+        modified_code = code[:i] + [({'jmp': 'nop', 'nop': 'jmp'}[code[i][0]], code[i][1])] + code[i+1:]
     else:
         continue
     gameboy = Gameboy()
