@@ -14,8 +14,7 @@ for line in lines:
 def parents(color):
     for product, ingredients in recipes.items():
         if any(color == component for component in ingredients[1]):
-            for p in parents(product):
-                yield p
+            yield from parents(product)
             yield product
 
 res1 = len(set(parents('shiny gold')))
