@@ -8,9 +8,9 @@ for i in range(25, len(v)):
 
 print(v[i])
 
-for k in range(len(v), 0, -1):
-    j = k - 2
-    while sum(v[j:k]) < v[i]: j -= 1
+k = 2
+for j in range(len(v)):
+    while sum(v[j:k]) < v[i]: k += 1
     if sum(v[j:k]) == v[i]: break
 
 print(max(v[j:k]) + min(v[j:k]))
