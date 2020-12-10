@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 with open('9.in') as f:
-    v = [int(i) for i in f.read().splitlines()]
+    v = [int(i) for i in f]
 
 for i in range(25, len(v)):
     if not v[i] in {x + y for x in v[i-25:i] for y in v[i-25:i] if x != y}: break
