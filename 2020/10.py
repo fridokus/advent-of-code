@@ -26,3 +26,13 @@ while i < len(diffs):
     i += 1
 
 print(res2)
+
+# DP solution for second part
+
+r = [1, 1, 2]
+for i in range(2, len(diffs)):
+    if diffs[i] == 1:
+        r.append(r[-1] + r[-2] * (diffs[i-1] == 1) + r[-3] * (diffs[i-1] == 1 and diffs[i-2] == 1))
+    else:
+        r.append(r[-1])
+print(r[-1])
