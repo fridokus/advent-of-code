@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-import itertools
-import functools
-
 with open('10.in') as f:
     v = sorted([0] + [int(i) for i in f.read().splitlines()])
     v += [max(v) + 3]
@@ -17,5 +14,15 @@ def fib(n):
         a, b = b, a + b
 
 factors = [1] + [sum(fib(i)) for i in range(10)][2:]
-factors_for_all_stretches = [factors[len([j for j in i if j == 1])] for _, i in itertools.groupby(diffs)]
-print(functools.reduce(lambda i, j: i * j, factors_for_all_stretches))
+
+i = 0
+res2 = 1
+while i < len(diffs):
+    ones_in_a_row = 0
+    while diffs[i] == 1:
+        ones_in_a_row += 1
+        i += 1
+    res2 *= factors[ones_in_a_row]
+    i += 1
+
+print(res2)
