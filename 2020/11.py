@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 with open('11.in') as f:
-    lines = [list(i) for i in f.read().splitlines()]
+    lines = [list(i.strip()) for i in f]
 
 h = len(lines)
 w = len(lines[0])
