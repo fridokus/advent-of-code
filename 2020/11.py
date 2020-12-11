@@ -11,41 +11,35 @@ def count_neighbors(state, j, i):
             for y in range(j-1, j+2) for x in range(i-1, i+2)]
     return sum(neighbors)
 
-def iterate_state(next_state, count_function, tol=4):
-    state = 0
-    while state != next_state:
-        state = [[i for i in row] for row in next_state]
+def iterate_state(state, count_function, tol=4):
+    next_state = 0
+    while next_state != state:
+        next_state = [[i for i in row] for row in state]
         for j in range(h):
             for i in range(w):
-                if state[j][i] == '.':
-                    next_state[j][i] = '.'
-                elif state[j][i] == '#':
-                    next_state[j][i] = 'L' if count_function(state, j, i) >= tol else '#'
-                else:
-                    next_state[j][i] = '#' if count_function(state, j, i) == 0 else 'L'
-    return state
+                if   next_state[j][i] == '.': state[j][i] = '.'
+                elif next_state[j][i] == '#': state[j][i] = 'L' if count_function(next_state, j, i) >= tol else '#'
+                else                        : state[j][i] = '#' if count_function(next_state, j, i) == 0   else 'L'
+    return next_state
 
-next_state = [[i for i in row] for row in lines]
-state = iterate_state(next_state, count_neighbors)
-print(sum([i == '#' for row in state for i in row]))
+state = [[i for i in row] for row in lines]
+next_state = iterate_state(state, count_neighbors)
+print(sum([i == '#' for row in next_state for i in row]))
 
 directions = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
-def count_neighbors_new(state, j, i):
+def count_neighbors_new(next_state, j, i):
     count = 0
     for direction in directions:
         distance = 0
         while True:
             distance += 1
-            y = direction[0]*distance + j
-            x = direction[1]*distance + i
-            if not (y >= 0 and y < h and x >= 0 and x < w): break
-            if state[y][x] == '#':
+            y, x = direction[0]*distance + j, direction[1]*distance + i
+            if not (y >= 0 and y < h and x >= 0 and x < w) or next_state[y][x] == 'L': break
+            if next_state[y][x] == '#':
                 count += 1
-                break
-            if state[y][x] == 'L':
                 break
     return count
 
-next_state = [[i for i in row] for row in lines]
-state = iterate_state(next_state, count_neighbors_new, tol=5)
-print(sum([i == '#' for row in state for i in row]))
+state = [[i for i in row] for row in lines]
+next_state = iterate_state(state, count_neighbors_new, tol=5)
+print(sum([i == '#' for row in next_state for i in row]))
