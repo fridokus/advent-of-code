@@ -6,7 +6,7 @@ with open('14.in') as f:
 apply_mask = lambda v, mask: int(''.join([mask[i] if mask[i] != 'X' else v[i] for i in range(36)]), 2)
 mem = {}
 for op, v in operations:
-    if op == 'mask': mask = list(v)
+    if op == 'mask': mask = v
     else: mem[int(op[4:])] = apply_mask(str(bin(int(v)))[2:].zfill(36), mask)
 
 print(sum([v for k, v in mem.items()]))
