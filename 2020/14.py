@@ -14,11 +14,11 @@ for op, v in operations:
 
 print(sum(mem))
 
-def yield_addresses(x):
+def addresses(x):
     if not 'X' in x: yield x
     else:
-        yield from yield_addresses(x.replace('X', '0', 1))
-        yield from yield_addresses(x.replace('X', '1', 1))
+        yield from addresses(x.replace('X', '0', 1))
+        yield from addresses(x.replace('X', '1', 1))
 
 mem = {}
 for op, v in operations:
@@ -27,6 +27,6 @@ for op, v in operations:
         a = list(bin(int(op[4:])))[2:]
         a = ['0' for i in range(36 - len(a))] + a
         x = ''.join([mask[i] if mask[i] != '0' else a[i] for i in range(36)])
-        for k in yield_addresses(x): mem[int(k, 2)] = int(v)
+        for k in addresses(x): mem[int(k, 2)] = int(v)
 
 print(sum([v for k, v in mem.items()]))
