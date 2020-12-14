@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 with open('14.in') as f:
-    operations = [i.split(' = ') for i in f.read().splitlines()]
+    operations = [i.replace(']', '').split(' = ') for i in f.read().splitlines()]
 
 def apply_mask(v, mask):
     v = ['0' for i in range(36 - len(v))] + v
@@ -10,7 +10,7 @@ def apply_mask(v, mask):
 mem = [0 for i in range(100000)]
 for op, v in operations:
     if op == 'mask': mask = list(v)
-    else: mem[int(op[4:op.index(']')])] = apply_mask(list(bin(int(v)))[2:], mask)
+    else: mem[int(op[4:])] = apply_mask(list(bin(int(v)))[2:], mask)
 
 print(sum(mem))
 
@@ -24,7 +24,7 @@ mem = {}
 for op, v in operations:
     if op == 'mask': mask = v
     else:
-        a = list(bin(int(op[4:op.index(']')])))[2:]
+        a = list(bin(int(op[4:])))[2:]
         a = ['0' for i in range(36 - len(a))] + a
         x = ''.join([mask[i] if mask[i] != '0' else a[i] for i in range(36)])
         for k in yield_addresses(x): mem[int(k, 2)] = int(v)
