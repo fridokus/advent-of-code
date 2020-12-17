@@ -14,14 +14,10 @@ def iterate(grid):
     for x in range(size):
         for y in range(size):
             for z in range(size):
-                if grid[z][y][x] and 2 <= count_neighbors(grid, z, y, x) <= 3:
-                    next_grid[z][y][x] = 1
-                elif grid[z][y][x]:
-                    next_grid[z][y][x] = 0
-                elif count_neighbors(grid, z, y, x) == 3:
-                    next_grid[z][y][x] = 1
-                else:
-                    next_grid[z][y][x] = 0
+                if grid[z][y][x] and 2 <= count_neighbors(grid, z, y, x) <= 3: next_grid[z][y][x] = 1
+                elif grid[z][y][x]: next_grid[z][y][x] = 0
+                elif count_neighbors(grid, z, y, x) == 3: next_grid[z][y][x] = 1
+                else: next_grid[z][y][x] = 0
     return next_grid
 
 def count_neighbors(grid, z, y, x):
@@ -55,14 +51,10 @@ def iterate4d(grid):
         for y in range(size):
             for z in range(size):
                 for w in range(size):
-                    if grid[w][z][y][x] and 2 <= count_neighbors4d(grid, w, z, y, x) <= 3:
-                        next_grid[w][z][y][x] = 1
-                    elif grid[w][z][y][x]:
-                        next_grid[w][z][y][x] = 0
-                    elif count_neighbors4d(grid, w, z, y, x) == 3:
-                        next_grid[w][z][y][x] = 1
-                    else:
-                        next_grid[w][z][y][x] = 0
+                    if grid[w][z][y][x] and 2 <= count_neighbors4d(grid, w, z, y, x) <= 3: next_grid[w][z][y][x] = 1
+                    elif grid[w][z][y][x]: next_grid[w][z][y][x] = 0
+                    elif count_neighbors4d(grid, w, z, y, x) == 3: next_grid[w][z][y][x] = 1
+                    else: next_grid[w][z][y][x] = 0
     return next_grid
 
 def count_neighbors4d(grid, w, z, y, x):
