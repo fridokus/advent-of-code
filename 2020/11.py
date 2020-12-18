@@ -7,7 +7,7 @@ h = len(lines)
 w = len(lines[0])
 
 def count_neighbors(state, j, i):
-    neighbors = [state[y][x] == '#' if y >= 0 and y < h and x >= 0 and x < w and not (y == j and x == i) else False
+    neighbors = [state[y][x] == '#' if 0 <= y < h and 0 <= x < w and not (y == j and x == i) else False
             for y in range(j-1, j+2) for x in range(i-1, i+2)]
     return sum(neighbors)
 
@@ -34,7 +34,7 @@ def count_neighbors_new(next_state, j, i):
         while True:
             distance += 1
             y, x = direction[0]*distance + j, direction[1]*distance + i
-            if not (y >= 0 and y < h and x >= 0 and x < w) or next_state[y][x] == 'L': break
+            if not (0 <= y < h and 0 <= x < w) or next_state[y][x] == 'L': break
             if next_state[y][x] == '#':
                 count += 1
                 break
