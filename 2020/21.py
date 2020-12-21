@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import re
 
-with open('21.in') as f:
-    data = f.read().replace('\n','')
+data = open('21.in').read().replace('\n','')
 
 l = re.findall(r'([\w+\s]+)\(contains ([\w+,?\s?]+)', data)
 complete_ingredients_list = [(set(i.strip().split(' ')), {j.strip() for j in a.split(',')}) for i, a in l]
@@ -15,19 +14,14 @@ for ingredients, allergens in complete_ingredients_list:
         if a in a_dict: a_dict[a] &= ingredients
         else:           a_dict[a] = {i for i in ingredients}
 
-cannot_contain_any_allergen = {i for i in all_i}
-for k, v in a_dict.items():
-    cannot_contain_any_allergen -= v
+cannot_contain_any_allergen = all_i - set.union(*[v for v in a_dict.values()])
 
-res1 = 0
-for ingredients, allergens in complete_ingredients_list:
-    for i in cannot_contain_any_allergen:
-        if i in ingredients: res1 += 1
+print(sum(sum(i in ingredients for i in cannot_contain_any_allergen) for ingredients, _ in complete_ingredients_list))
 
-print(res1)
-
-for k, v in a_dict.items():
-    print(k)
-    print(v)
-
-# Solve part 2 through inspection (1 min)
+while any(len(v) > 1 for _, v in a_dict.items()):
+    for k in a_dict: 
+        for k2, v in a_dict.items():
+            if k != k2 and len(v) == 1: a_dict[k] -= v
+res2 = ''
+for _, v in sorted(a_dict.items(), key=lambda x: x[0]): res2 += next(iter(v)) + ','
+print(res2[:-1])
