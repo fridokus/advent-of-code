@@ -4,7 +4,7 @@ tiles = {int(tile[5:9]): tile.splitlines()[1:] for tile in open('20.in').read().
 image = [[] for i in range(12)]
 image[0].append((2297, 2)) # Did part 1 somewhere else; this is a corner
 
-def flip(image): return [list(i[::-1]) for i in image]
+def flip(image): return [i[::-1] for i in image]
 def rotate(image): return list(zip(*image))[::-1]
 
 def get_image(tile):
