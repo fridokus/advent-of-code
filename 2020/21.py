@@ -12,9 +12,9 @@ for ingredients, allergens in complete_ingredients_list:
     all_i |= ingredients
     for a in allergens:
         if a in a_dict: a_dict[a] &= ingredients
-        else:           a_dict[a] = {i for i in ingredients}
+        else:           a_dict[a] = set(ingredients)
 
-cannot_contain_any_allergen = all_i - set.union(*[v for v in a_dict.values()])
+cannot_contain_any_allergen = all_i - set.union(*a_dict.values())
 
 print(sum(sum(i in ingredients for i in cannot_contain_any_allergen) for ingredients, _ in complete_ingredients_list))
 
