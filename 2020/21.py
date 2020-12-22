@@ -18,7 +18,7 @@ cannot_contain_any_allergen = all_i - set.union(*a_dict.values())
 
 print(sum(sum(i in ingredients for i in cannot_contain_any_allergen) for ingredients, _ in complete_ingredients_list))
 
-while any(len(v) > 1 for _, v in a_dict.items()):
+while any(len(v) > 1 for v in a_dict.values()):
     for k in a_dict: 
         for k2, v in a_dict.items():
             if k != k2 and len(v) == 1: a_dict[k] -= v
