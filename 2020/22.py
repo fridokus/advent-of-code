@@ -12,8 +12,7 @@ else:        print(sum(i * decks[1][-i] for i in range(1, 51)))
 
 decks = [[int(n) for n in i.splitlines()[1:]] for i in open('22.in').read().split('\n\n')]
 
-def copy_decks(decks): return [[i for i in deck] for deck in decks]
-
+copy_decks = lambda decks: [[i for i in deck] for deck in decks]
 def game(decks):
     previous = list()
     while all(decks):
