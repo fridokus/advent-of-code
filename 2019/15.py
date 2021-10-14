@@ -87,5 +87,3 @@ repair_droid = RepairDroid(prog)
 repair_droid.repair_loop()
 repair_droid.find_shortest_path()
 repair_droid.fill_with_oxygen()
-
-

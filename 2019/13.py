@@ -19,7 +19,6 @@ class ArcadeCabinet(object):
                 self.computer.execute()
             self.draw_object()
 
-
     def draw_object(self):
         tile = self.computer.out[-1]
         y = self.computer.out[-2]
