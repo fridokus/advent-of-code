@@ -35,14 +35,3 @@ for phase in range(phases):
         sum_n -= n[i]
     n = [i for i in new_n]
 print(n[:8])
-
-# mat = np.diag([1 for i in range(n_len)])
-# for row in range(1, n_len+1):
-#     mat[row-1] = np.concatenate([np.repeat(base_pattern, row) for i in range(math.ceil(n_len/row))])[1:n_len+1]
-
-# print(mat)
-# new_mat = mat
-# np.set_printoptions(suppress=True,linewidth=5000,threshold=5000)
-# for i in range(99):
-#     new_mat = mat.dot(new_mat)
-#     print(new_mat)

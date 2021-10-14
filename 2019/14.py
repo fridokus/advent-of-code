@@ -19,7 +19,6 @@ class Formula():
         ret += ', Reactants: ' + str(self.reactants)
         return ret
 
-
 def add_to_dict(d, key, value):
     if key in d:
         d[key] += value
@@ -39,8 +38,6 @@ def reduce_by_spare(wanted_dict, spare_dict):
                 wanted_dict[spare] = 0
                 spare_dict[spare] = 0
 
-
-# f = open('test14_2.in', 'r')
 f = open('14.in', 'r')
 lines = f.readlines()
 formulas = []
@@ -72,5 +69,3 @@ while not done:
             done = False
 
 print(wanted_dict)
-
-
