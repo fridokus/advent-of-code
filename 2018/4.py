@@ -24,11 +24,6 @@ for line in watchlist:
         guard = elements[3]
         if guard not in guard_sleep_stats:
             guard_sleep_stats[guard] = np.zeros((1, 60), int)
-        # Check the missing guard interval if guard starts later than midnight
-        # if ("00:00" < time_stamp) and (time_stamp <= "00:59"):
-        #     start_minute = int("00")
-        #     end_minute = max(int(time_stamp[-2:]) - 1, 1) # As array slice 0:0 yields empty selection
-        #     guard_sleep_stats[guard][0, start_minute:end_minute] += 1
     elif event == "wakes":
         end_minute = int(time_stamp[-2:])
         guard_sleep_stats[guard][0, start_minute:end_minute] += 1

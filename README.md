@@ -11,7 +11,7 @@ Completed puzzles:
     2         x      x       x        
     3         x      x       x        
     4         x      x       x        
-    5                x       x        
+    5         x      x       x        
     6                x       x        
     7                x       x        
     8                x       x        
