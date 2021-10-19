@@ -1,6 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
-ids = [i for i in open('2.in').read().splitlines()]
+name = input("Specify name (which in-file to be used):")
+file_name = "2_%s.in" % name if name else "2.in"
+ids = [i for i in open(file_name).read().splitlines()]
 
 counts = [0, 0, 0, 0]
 
