@@ -2,8 +2,6 @@
 
 import numpy as np
 
-name = input("Specify name (which in-file to be used):")
-file_name = "3_%s.in" % name if name else "3.in"
 cols = rows = 1000 # Santa's suit
 with open("3.in", "r") as f:
     fabric = np.zeros((rows, cols), dtype = int)
@@ -16,7 +14,7 @@ with open("3.in", "r") as f:
         size_col, size_row =  list(map(int, elements[3].split("x")))
         claim = fabric[start_row:start_row + size_row, start_col:start_col + size_col]
         # Validate if current claim is "original" (no previous claims) in the order of the elves
-        if (claim > 0).sum() == 0:
+        if not claim.sum():
             # Store current elf and claim as "original"
             original_elfs.append(elf)
             original_elf_coordinates.append((start_row, start_row + size_row, start_col, start_col + size_col))
@@ -26,9 +24,10 @@ with open("3.in", "r") as f:
 for index, elf_coordinates in enumerate(original_elf_coordinates):
     claim = fabric[elf_coordinates[0]:elf_coordinates[1], elf_coordinates[2]:elf_coordinates[3]]
     # Re-check the "original" claims against the updated fabric
-    if (claim != 1).sum() == 0:
+    if not (claim != 1).sum():
         # Salvage only the true "original" claim
         the_original_elf = original_elfs[index]
+        break
 
 # Print the summary
 print("AoC 2018 Day 3: No Matter How You Slice It")
