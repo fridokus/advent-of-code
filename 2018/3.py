@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
+
 import numpy as np
 
-# Santa's suit fabric
-cols = rows = 1000
-
+name = input("Specify name (which in-file to be used):")
+file_name = "3_%s.in" % name if name else "3.in"
+cols = rows = 1000 # Santa's suit
 with open("3.in", "r") as f:
     fabric = np.zeros((rows, cols), dtype = int)
     original_elfs = []
@@ -28,7 +30,8 @@ for index, elf_coordinates in enumerate(original_elf_coordinates):
         # Salvage only the true "original" claim
         the_original_elf = original_elfs[index]
 
-print("AoC Day 3: No Matter How You Slice It")
+# Print the summary
+print("AoC 2018 Day 3: No Matter How You Slice It")
 print("  Part 1:")
 print("\tTotal number of elements in fabric:         ", rows * cols)
 print("\tTotal number of non-zero elements in fabric:", (fabric > 0).sum())
