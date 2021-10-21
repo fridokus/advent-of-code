@@ -5,7 +5,7 @@ import numpy as np
 name = input("Specify name (which in-file to be used):")
 file_name = "3_%s.in" % name if name else "3.in"
 cols = rows = 1000 # Santa's suit
-with open("3.in", "r") as f:
+with open(file_name, "r") as f:
     fabric = np.zeros((rows, cols), dtype = int)
     original_elfs = []
     original_elf_coordinates = []

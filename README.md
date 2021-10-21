@@ -1,10 +1,11 @@
 # advent-of-code
+# hacktoberfest
 
 Advent of Code in Python
 
 Note: AoC generates individual puzzle files per user! See 2018-folder for reference on how to structure files.
 
-Completed puzzles:
+Completed puzzles (x = completed, o = ongoing):
 
     Day    2018   2019    2020    2021
     1         x      x       x        
@@ -12,7 +13,7 @@ Completed puzzles:
     3         x      x       x        
     4         x      x       x        
     5         x      x       x        
-    6                x       x        
+    6         o      x       x        
     7                x       x        
     8                x       x        
     9                x       x        
