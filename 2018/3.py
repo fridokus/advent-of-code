@@ -3,7 +3,7 @@
 import numpy as np
 
 cols = rows = 1000 # Santa's suit
-with open("3.in", "r") as f:
+with open(file_name, "r") as f:
     fabric = np.zeros((rows, cols), dtype = int)
     original_elfs = []
     original_elf_coordinates = []

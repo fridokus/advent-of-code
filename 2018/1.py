@@ -14,4 +14,5 @@ while i not in visited:
     i += changes[ptr]
     ptr = (ptr + 1) % len(changes)
 
+print(len(visited))
 print(i)
