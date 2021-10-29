@@ -13,15 +13,6 @@ func check(e error) {
     }
 }
 
-func contains_int(int_slice []int, value int) bool {
-    for _, val := range int_slice {
-        if value == val {
-            return true
-        }
-    }
-    return false
-}
-
 func main() {
     // Read-in file and error check (just for convention)
     data, errors := os.ReadFile("1_lan.in")
@@ -29,28 +20,29 @@ func main() {
 
     // Calculate landing frequency
     var frequency int = 0
-    var frequencies []string = strings.Split(string(data), "\n")
-    frequencies = frequencies[:len(frequencies)-1]
-    for i := 0; i < len(frequencies); i++ {
-        frequency_to_add, errors := strconv.Atoi(frequencies[i]);
+    var frequency_to_add int
+    var frequencies_string []string = strings.Split(string(data), "\n")
+    frequencies_string = frequencies_string[:len(frequencies_string)-1]
+    var f_len int = len(frequencies_string)
+    frequencies := make([]int, f_len)
+    for i := 0; i < f_len ; i++ {
+        frequency_to_add, errors = strconv.Atoi(frequencies_string[i])
         check(errors)
+        frequencies[i] = frequency_to_add
         frequency += frequency_to_add
     }
 
     // Re-calculate landing frequency if meter oscillates infinitely
     var freq int = 0
     var i int = 0
-    var unique_frequencies []int
-    for i < len(frequencies) {
-        frequency_to_add, errors := strconv.Atoi(frequencies[i])
-        check(errors)
-        freq += frequency_to_add
-        if contains_int(unique_frequencies, freq) {
+    unique_frequencies := make(map[int]bool)
+    for i < f_len {
+        freq += frequencies[i]
+        if unique_frequencies[freq] {
             break
-        } else {
-            unique_frequencies = append(unique_frequencies, freq)
         }
-        i = (i + 1) % len(frequencies)
+        unique_frequencies[freq] = true
+        i = (i + 1) % f_len
     }
 
     // Print summary
