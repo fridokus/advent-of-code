@@ -14,8 +14,7 @@ print(int(gamma, 2) * int(epsilon, 2))
 def shrink(lines, co):
     for i in range(l):
         most_one = sum([int(line[i]) for line in lines]) >= len(lines)/2
-        if most_one != co: lines = [line for line in lines if     int(line[i])]
-        else:              lines = [line for line in lines if not int(line[i])]
+        lines = [line for line in lines if (most_one != co) != int(line[i])]
         if len(lines) == 1: return(lines[0])
 
 print(int(shrink(lines, 0), 2) * int(shrink(lines, 1), 2))
