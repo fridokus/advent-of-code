@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('1.in') as f:
     lines = [int(i) for i in f]
 
