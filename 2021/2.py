@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('2.in') as f:
     lines = [i.split() for i in f] 
 
