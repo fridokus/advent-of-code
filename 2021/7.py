@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('7.in') as f:
     crabs = [int(i) for i in f.read().split(',')]
 

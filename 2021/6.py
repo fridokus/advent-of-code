@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('6.in') as f:
     fishes = [int(i) for i in f.read().split(',')]
 

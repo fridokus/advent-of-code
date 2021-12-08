@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('4.in') as f:
     groups = f.read().split('\n\n')
 

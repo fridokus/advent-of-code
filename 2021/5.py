@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import re
 
 with open('5.in') as f:
