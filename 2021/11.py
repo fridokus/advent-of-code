@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('11.in') as f:
     energies = [[int(i) for i in line] for line in f.read().splitlines()]
 

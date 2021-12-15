@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('13.in') as f:
     dots, instructions = f.read().split('\n\n')
     dots = dots.splitlines()

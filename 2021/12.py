@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from collections import defaultdict
 
 with open('12.in') as f:
