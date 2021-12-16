@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
 with open('16.in') as f:
-    t = f.read().strip()
-    size = len(t) * 4
-    transmission = list(bin(int(t, 16))[2:].zfill(size))
+    transmission = f.read().strip()
+    transmission = list(bin(int(transmission, 16))[2:].zfill(len(transmission) * 4))
 
 def prod(i):
     p = 1
@@ -17,10 +16,9 @@ class Packet():
         self.version_sum = 0
 
     def parse(self, packet):
-        version, packet = packet[:3], packet[3:]
-        self.version_sum += bin_to_dec(version)
-        type_id, packet = packet[:3], packet[3:]
-        type_id = bin_to_dec(type_id)
+        version, packet = bin_to_dec(packet[:3]), packet[3:]
+        self.version_sum += version
+        type_id, packet = bin_to_dec(packet[:3]), packet[3:]
         if type_id == 4:
             groups = []
             while True:
