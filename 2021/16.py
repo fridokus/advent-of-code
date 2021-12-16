@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import time
-
 with open('16.in') as f:
     t = f.read().strip()
     size = len(t) * 4
