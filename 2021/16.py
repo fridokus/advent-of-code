@@ -30,18 +30,15 @@ class Packet():
             return bin_to_dec(groups), packet
 
         length_type_id = packet.pop(0)
+        subrets = []
         if length_type_id == '0':
-            length, packet = packet[:15], packet[15:]
-            length = bin_to_dec(length)
+            length, packet = bin_to_dec(packet[:15]), packet[15:]
             subpacket, packet = packet[:length], packet[length:]
-            subrets = []
             while subpacket:
                 subret, subpacket = self.parse(subpacket)
                 subrets.append(subret)
         else:
-            number, packet = packet[:11], packet[11:]
-            number = bin_to_dec(number)
-            subrets = []
+            number, packet = bin_to_dec(packet[:11]), packet[11:]
             for _ in range(number):
                 subret, packet = self.parse(packet)
                 subrets.append(subret)
