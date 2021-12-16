@@ -51,5 +51,5 @@ def parse(packet):
     elif type_id == 7: ret = subrets[0] == subrets[1]
     return ret, packet
 
-print(parse(transmission))
-print(VERSION_SUM)
+print('B', parse(transmission)[0])
+print('A', VERSION_SUM)
