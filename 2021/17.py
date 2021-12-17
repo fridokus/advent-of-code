@@ -8,7 +8,7 @@ with open('17.in') as f:
 
 t_min = (ints[0], ints[2])
 t_max = (ints[1], ints[3])
-v0_min = (int(sqrt(t_min[0]) - 1), t_min[1])
+v0_min = (int(sqrt(t_min[0] * 2)), t_min[1])
 v0_max = (t_max[0], abs(t_min[1] + 1))
 
 print((v0_max[1] + 1) * v0_max[1] // 2)
