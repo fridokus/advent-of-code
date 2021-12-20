@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('20.in') as f:
     algo, lines = f.read().split('\n\n')
 
@@ -10,9 +12,7 @@ diff_by_2 = (size - real_size) // 2
 
 def adjacent(m, j, i):
     if j == 0 or i == 0 or j == size-1 or i == size-1: return m[j][i]*9
-    ret = ''
-    for y in range(j-1, j+2): ret += ''.join([m[y][x] for x in range(i-1, i+2)])
-    return ret
+    return ''.join(m[j-1][i-1:i+2] + m[j][i-1:i+2] + m[j+1][i-1:i+2])
 
 image = []
 border = ['0' for i in range(diff_by_2)]
