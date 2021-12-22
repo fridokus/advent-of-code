@@ -1,4 +1,4 @@
-import time
+#!/usr/bin/python3
 
 with open('19.in') as f:
     scans = [[eval('(' + j + ')') for j in i.splitlines()[1:]] for i in f.read().split('\n\n')]

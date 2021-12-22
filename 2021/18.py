@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('18.in') as f:
     lines = [list(i) for i in f.read().splitlines()]
 

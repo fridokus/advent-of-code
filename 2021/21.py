@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 with open('21.in') as f:
     p0 = [int(i[-1]) for i in f.read().splitlines()]
 
