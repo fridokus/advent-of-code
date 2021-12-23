@@ -197,11 +197,11 @@ def return_amphipods_home(state, costs, habitat, passes):
             for pos, amphipod in enumerate(s):
                 if not amphipod: continue
                 for target in range(size):
-                    if s[target] != '': continue
+                    if s[target]: continue
                     if any([s[i] for i in passes[pos][target]]): continue
                     if pos < 7 and target < 7: continue
                     if pos > 6 and target > 6: continue
-                    if any([target in habitat[a] and not amphipod == a for a in multiplier]): continue
+                    if target > 6 and target not in habitat[amphipod]: continue
                     if target in habitat[amphipod] and any([(s[i] != amphipod and s[i] != '') for i in habitat[amphipod]]): continue
                     if target in habitat[amphipod] and any([not s[i] if i > target else 0 for i in habitat[amphipod]]): continue
                     if pos in habitat[amphipod] and all([s[i] == amphipod if i > pos else 1 for i in habitat[amphipod]]): continue
