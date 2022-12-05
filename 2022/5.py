@@ -5,7 +5,7 @@ import re
 with open('5.in') as f:
     stacks1, moves = [i.splitlines() for i in f.read().split('\n\n')]
 
-stacks1 = [[c for c in list(col[-2::-1]) if c != ' '] for col in zip(*stacks1) if col[-1] not in ['[', ' ', ']']]
+stacks1 = [[c for c in list(col[-2::-1]) if c != ' '] for col in zip(*stacks1) if col[-1] not in '[ ]']
 
 stacks2 = [[j for j in i ] for i in stacks1]
 for move in moves:
