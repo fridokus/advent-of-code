@@ -7,10 +7,6 @@ def get_dir(f, d):
     if not d: return f
     return get_dir(f[d[0]], d[1:])
 
-def du(d):
-    if type(d) == int: return d
-    return sum([du(d[k]) for k in d])
-
 files = {'/': dict()}
 pwd = []
 
@@ -24,17 +20,19 @@ for line in output:
         size, name = line.split()
         wd[name] = int(size)
 
+sizes = []
+def du(d):
+    if type(d) == int: return d
+    size = sum([du(d[k]) for k in d])
+    sizes.append(size)
+    return size
+
 req = 30000000 - (70000000 - du(files))
 r1 = 0
 r2 = 70000000 
-def du_recursive(f):
-    global r1, r2
-    for k in filter(lambda x: type(f[x]) == dict, f):
-        size = du(f[k])
-        if size < 100000: r1 += size
-        elif size > req:  r2 = min(r2, size)
-        du_recursive(f[k])
+for size in sizes:
+    if size < 100000: r1 += size
+    if size > req: r2 = min(r2, size)
 
-du_recursive(files)
 print(r1)
 print(r2)
