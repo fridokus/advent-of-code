@@ -29,7 +29,7 @@ def du(d):
 
 req = 30000000 - (70000000 - du(files))
 r1 = 0
-r2 = 70000000 
+r2 = 70000000
 for size in sizes:
     if size < 100000: r1 += size
     if size > req: r2 = min(r2, size)
