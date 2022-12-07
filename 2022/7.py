@@ -14,7 +14,7 @@ for line in output:
     if line == '$ ls': continue
     wd = get_dir(files, pwd)
     if line[:3] == 'dir': wd[line[4:]] = dict()
-    elif '..' in line:    pwd = pwd[:-1]
+    elif '..' in line:    pwd.pop()
     elif '$ cd' in line:  pwd.append(line[5:])
     else:
         size, name = line.split()
