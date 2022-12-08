@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+from itertools import product
+
 with open('8.in') as f:
     trees = [[int(i) for i in line] for line in f.read().splitlines()]
 
@@ -14,10 +16,8 @@ visible = lambda x, y: any([
                           ])
 
 r1 = 0
-for y in range(h):
-    for x in range(w):
-        r1 += visible(x, y)
-
+for y, x in product(range(h), range(w)):
+    r1 += visible(x, y)
 print(r1)
 
 def score(x, y):
@@ -37,8 +37,6 @@ def score(x, y):
     return ret
 
 r2 = 0
-for y in range(1, h-1):
-    for x in range(1, w-1):
-        r2 = max(r2, score(x, y))
-
+for y, x in product(range(1, h-1), range(1, w-1)):
+    r2 = max(r2, score(x, y)) 
 print(r2)
