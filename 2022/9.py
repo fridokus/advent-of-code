@@ -18,8 +18,8 @@ for l in lines:
             h, t = knots[k:k+2]
             if not adjacent(h, t):
                 for i in range(2): t[i] += (h[i] != t[i]) * (2*(h[i] > t[i]) - 1)
-            if   k == 0: visited1.add(tuple(t))
-            elif k == 8: visited9.add(tuple(t))
+        visited1.add(tuple(knots[1]))
+        visited9.add(tuple(knots[9]))
 
 print(len(visited1))
 print(len(visited9))
