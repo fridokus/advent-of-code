@@ -16,8 +16,8 @@ for l in lines:
         for i in range(2): knots[0][i] += d[i]
         for k in range(9):
             h, t = knots[k:k+2]
-            if not adjacent(h, t):
-                for i in range(2): t[i] += (h[i] != t[i]) * (2*(h[i] > t[i]) - 1)
+            if adjacent(h, t): break
+            for i in range(2): t[i] += (h[i] != t[i]) * (2*(h[i] > t[i]) - 1)
         visited1 |= {tuple(knots[1])}
         visited9 |= {tuple(knots[9])}
 
