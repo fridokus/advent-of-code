@@ -5,7 +5,7 @@ with open('3.in') as f:
 
 r1 = 0
 for r in rs:
-    c = set.pop(set(r[:len(r)//2]) & set(r[len(r)//2:]))
+    for c in set(r[:len(r)//2]) & set(r[len(r)//2:]): break
     r1 += ord(c) - 96 if c.islower() else ord(c) - 38
 
 print(r1)
