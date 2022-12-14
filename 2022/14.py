@@ -16,14 +16,18 @@ for line in lines:
         for x, y in product(range(minx, maxx+1), range(miny, maxy+1)):
             rocks |= {(x, y)}
 
+def move_once(s, rocks):
+    if   (s[0],   s[1]+1) not in rocks: s[0], s[1] = s[0],   s[1]+1
+    elif (s[0]-1, s[1]+1) not in rocks: s[0], s[1] = s[0]-1, s[1]+1
+    elif (s[0]+1, s[1]+1) not in rocks: s[0], s[1] = s[0]+1, s[1]+1
+    else: return 
+    return True
+
 n_rocks = len(rocks)
 while True == True:
     s = [500, 0]
     while s[1] < abyss:
-        if   (s[0],   s[1]+1) not in rocks: s[1] += 1
-        elif (s[0]-1, s[1]+1) not in rocks: s = [s[0]-1, s[1]+1]
-        elif (s[0]+1, s[1]+1) not in rocks: s = [s[0]+1, s[1]+1]
-        else: break
+        if not move_once(s, rocks): break
     if s[1] >= abyss: break
     rocks |= {tuple(s)}
 print(len(rocks) - n_rocks)
@@ -33,10 +37,7 @@ n_rocks += 1000
 while True == True:
     s = [500, 0]
     while True:
-        if   (s[0],   s[1]+1) not in rocks: s[1] += 1
-        elif (s[0]-1, s[1]+1) not in rocks: s = [s[0]-1, s[1]+1]
-        elif (s[0]+1, s[1]+1) not in rocks: s = [s[0]+1, s[1]+1]
-        else:  break
+        if not move_once(s, rocks): break
     rocks |= {tuple(s)}
     if not s[1]: break
 print(len(rocks) - n_rocks)
