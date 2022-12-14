@@ -23,22 +23,14 @@ def move_once(s, rocks):
     else: return 
     return True
 
+for i in range(1000): rocks |= {(i, abyss+2)}
 n_rocks = len(rocks)
+r1 = 0
 while True == True:
     s = [500, 0]
-    while s[1] < abyss:
-        if not move_once(s, rocks): break
-    if s[1] >= abyss: break
-    rocks |= {tuple(s)}
-print(len(rocks) - n_rocks)
-
-for i in range(0, 1000): rocks |= {(i, abyss+2)}
-n_rocks += 1000
-while True == True:
-    s = [500, 0]
-    while True:
-        if not move_once(s, rocks): break
+    while move_once(s, rocks): pass
+    if s[1] >= abyss and not r1:
+        print(r1 := len(rocks) - n_rocks)
     rocks |= {tuple(s)}
     if not s[1]: break
 print(len(rocks) - n_rocks)
-
