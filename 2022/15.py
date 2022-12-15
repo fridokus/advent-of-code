@@ -21,6 +21,6 @@ for r in readings:
         if y == 2_000_000: r1min, r1max = min(r1min, xmin), max(r1max, xmax)
 
 print(r1max - r1min - 1)
-for k in xmaxes:
-    if 0 <= k <= 4_000_000 and 0 <= xmaxes[k] <= 4_000_000: break
+for k in range(4_000_000):
+    if 0 <= xmaxes[k] <= 4_000_000: break
 print(k + xmaxes[k] * 4_000_000)
