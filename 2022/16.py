@@ -2,7 +2,7 @@
 
 from re import findall
 from collections import defaultdict
-from itertools import product
+from itertools import combinations
 
 with open('16.in') as f:
     lines = f.read().splitlines()
@@ -51,12 +51,17 @@ class State:
 
 
 states = [State()]
-scores = []
+idle_final_per_pos = defaultdict(int)
 states26 = []
 while True == True:
     if min([state.t for state in states]) >= 30: break
     for state in states:
-        # TODO For a cleaner solution: dump states that are so far from max that they will never reach it
+        idle_final_here = 0
+        for valve in state.open_valves:
+            idle_final_here += flow_rates[valve] * (30 - state.t)
+        if state.t > 3 and idle_final_here + state.score <= idle_final_per_pos[state.pos]:
+            states.remove(state)
+            continue
         if state.t >= 30: continue
         if state.t == 26:
             new_state = State(pos=state.pos, just_moved=state.just_moved, open_valves=state.open_valves.copy(), t=state.t, score=state.score, visited=state.visited.copy())
@@ -85,11 +90,8 @@ while True == True:
         states.remove(state)
 
 print(max([state.score for state in states]))
-
 r2 = 0
-for s1, s2 in product(states26, states26): # TODO: Don't do the entire square, only triangle (saves 1/2 time)
+for s1, s2 in combinations(states26, 2):
     if not s1.visited & s2.visited:
         r2 = max(r2, s1.score + s2.score)
 print(r2)
-
-
