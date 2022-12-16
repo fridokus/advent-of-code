@@ -56,6 +56,7 @@ states26 = []
 while True == True:
     if min([state.t for state in states]) >= 30: break
     for state in states:
+        # TODO For a cleaner solution: dump states that are so far from max that they will never reach it
         if state.t >= 30: continue
         if state.t == 26:
             new_state = State(pos=state.pos, just_moved=state.just_moved, open_valves=state.open_valves.copy(), t=state.t, score=state.score, visited=state.visited.copy())
@@ -67,7 +68,7 @@ while True == True:
             state.t += 1
             continue
 
-        if not valid_targets - state.open_valves or state.t >= 22: # tiral and error :/
+        if not valid_targets - state.open_valves or state.t >= 22: # tiral and error :/ TODO: copy state and step t when above a certain value
             state.t += 1
             continue
 
@@ -86,7 +87,7 @@ while True == True:
 print(max([state.score for state in states]))
 
 r2 = 0
-for s1, s2 in product(states26, states26):
+for s1, s2 in product(states26, states26): # TODO: Don't do the entire square, only triangle (saves 1/2 time)
     if not s1.visited & s2.visited:
         r2 = max(r2, s1.score + s2.score)
 print(r2)
