@@ -4,22 +4,22 @@ with open('10.in') as f:
     lines = f.read().splitlines()
 
 class CRT:
-    def __init__(self):
-        self.x = 1
-        self.cycle = 0
-        self.signal_strengths = []
-        self.image = [['.']*40 for _ in range(6)]
+    def __init__(s):
+        s.x = 1
+        s.cycle = 0
+        s.signal_strengths = []
+        s.image = [['.']*40 for _ in range(6)]
 
-    def tick(self):
-        if self.cycle % 40 in (self.x-1, self.x, self.x+1):
-            self.image[self.cycle // 40][self.cycle % 40] = '#'
-        self.cycle += 1
-        if not (20 + self.cycle) % 40:
-            self.signal_strengths.append(self.cycle * self.x)
+    def tick(s):
+        if s.cycle % 40 in (s.x-1, s.x, s.x+1):
+            s.image[s.cycle // 40][s.cycle % 40] = '#'
+        s.cycle += 1
+        if not (20 + s.cycle) % 40:
+            s.signal_strengths.append(s.cycle * s.x)
 
-    def addx(self, x):
-        for _ in range(2): self.tick()
-        self.x += x
+    def addx(s, x):
+        for _ in range(2): s.tick()
+        s.x += x
 
 crt = CRT()
 for line in lines:

@@ -6,23 +6,23 @@ with open('11.in') as f:
     inputs = [i.splitlines() for i in f.read().split('\n\n')]
 
 class Monkey:
-    def __init__(self, op, mod, true_target, false_target, items):
-        self.op = op
-        self.mod = mod
-        self.true_target = true_target
-        self.false_target = false_target
-        self.items = items
-        self.inspected = 0
+    def __init__(s, op, mod, true_target, false_target, items):
+        s.op = op
+        s.mod = mod
+        s.true_target = true_target
+        s.false_target = false_target
+        s.items = items
+        s.inspected = 0
 
-    def turn(self, div, monkeys):
-        while self.items:
-            self.inspected += 1
-            old = self.items.pop(0)
-            new = eval(self.op)
+    def turn(s, div, monkeys):
+        while s.items:
+            s.inspected += 1
+            old = s.items.pop(0)
+            new = eval(s.op)
             if div: new //= 3
             new %= global_mod
-            if not new % self.mod: monkeys[self.true_target ].items.append(new)
-            else:                  monkeys[self.false_target].items.append(new)
+            if not new % s.mod: monkeys[s.true_target ].items.append(new)
+            else:                  monkeys[s.false_target].items.append(new)
 
 monkeys  = []
 monkeys2 = []
