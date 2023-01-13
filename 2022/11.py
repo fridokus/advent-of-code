@@ -14,7 +14,7 @@ class Monkey:
         s.items = items
         s.inspected = 0
 
-    def turn(s, div, monkeys):
+    def __call__(s, div, monkeys):
         while s.items:
             s.inspected += 1
             old = s.items.pop(0)
@@ -38,9 +38,9 @@ for i, m in enumerate(inputs):
 mul = lambda x, y: x*y
 global_mod = reduce(mul, [m.mod for m in monkeys])
 for round in range(20):
-    for m in monkeys: m.turn(True, monkeys)
+    for m in monkeys: m(True, monkeys)
 print(mul(*sorted([m.inspected for m in monkeys])[-2:]))
 
 for round in range(10000):
-    for m in monkeys2: m.turn(False, monkeys2)
+    for m in monkeys2: m(False, monkeys2)
 print(mul(*sorted([m.inspected for m in monkeys2])[-2:]))
