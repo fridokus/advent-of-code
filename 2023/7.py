@@ -28,7 +28,7 @@ def typ(c):
     if c.count(c[0]) == 4 or c.count(c[1]) == 4: return 5
     if any([c.count(c[i]) == 3 and c.count(c[j]) == 2 for i, j in product(range(4), range(4))]): return 4
     if any([c.count(c[i]) == 3 for i in range(3)]): return 3
-    if any([c.count(c[i]) == 2 and c.count(c[j]) == 2 for i, j in product(range(4), range(4))]): return 2
+    if any([c.count(c[i]) == 2 and c.count(c[j]) == 2 and c[i] != c[j] for i, j in product(range(4), range(4))]): return 2
     if any([c.count(c[i]) == 2 for i in range(4)]): return 1
     return 0
 
