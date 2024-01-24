@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+ #!/usr/bin/python3
 
 from itertools import product
 from functools import cmp_to_key
@@ -47,7 +47,7 @@ values['J'] = 1
 def typ(c):
     if any([c.count(c[i]) == 5 - c.count('J') for i in range(5)]) or c.count('J') == 5: return 6
     if any([c.count(c[i]) == 4 - c.count('J') for i in range(5)]): return 5
-    if any([c.count(c[i]) == 3 - c.count('J') and c.count(c[j]) == 2 and c[i] != c[j] for i, j in product(range(5), range(5))]): return 4
+    if any([c.count(c[i]) == 3 - c.count('J') and c.count(c[j]) == 2 and c[i] != c[j] and c[j] != 'J' for i, j in product(range(5), range(5))]): return 4
     if any([c.count(c[i]) == 3 - c.count('J') for i in range(5)]): return 3
     if any([c.count(c[i]) == 2 and c.count(c[j]) == 2 and c[i] != c[j] for i, j in product(range(5), range(5))]): return 2
     if any([c.count(c[i]) == 2 - c.count('J') for i in range(5)]): return 1
