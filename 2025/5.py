@@ -12,13 +12,15 @@ for i in available:
 print(r1)
 
 fresh_ranges.sort(key=lambda x: x[0])
-r2 = 0
-merged = []
-for current in fresh_ranges:
-    if not merged or merged[-1][-1] < current[0] - 1:
-        merged.append(current)
-    else:
-        merged[-1] = range(merged[-1][0], max(merged[-1][-1], current[-1]) + 1)
-for r in merged:
-    r2 += r[-1] - r[0] + 1
+from functools import reduce
+def merge_ranges(ranges):
+    def reducer(merged, current):
+        if not merged or merged[-1][-1] < current[0] - 1:
+            merged.append(current)
+        else:
+            merged[-1] = range(merged[-1][0], max(merged[-1][-1], current[-1]) + 1)
+        return merged
+    return reduce(reducer, ranges, [])
+merged = merge_ranges(fresh_ranges)
+r2 = sum(r[-1] - r[0] + 1 for r in merged)
 print(r2)
