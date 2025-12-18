@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 use std::fs;
 
 fn main() {
-    let data: Vec<String> = fs::read_to_string("2025/7.in")
+    let data: Vec<String> = fs::read_to_string("7.in")
         .expect("Failed to read input file")
         .lines()
         .map(|s| s.to_string())
