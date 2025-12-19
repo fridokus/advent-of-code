@@ -37,6 +37,9 @@ fn main() {
     let mut graph: HashMap<String, Vec<String>> = HashMap::new();
     
     for line in contents.lines() {
+        if line.len() < 5 {
+            continue; // Skip invalid lines
+        }
         let key = line[..3].to_string();
         let values: Vec<String> = line[5..]
             .split(' ')
@@ -52,8 +55,9 @@ fn main() {
     println!("{}", r1);
     
     // Part 2
-    let r2 = paths("svr", "fft", &graph, &mut memo) 
-        * paths("fft", "dac", &graph, &mut memo) 
-        * paths("dac", "out", &graph, &mut memo);
+    let p1 = paths("svr", "fft", &graph, &mut memo);
+    let p2 = paths("fft", "dac", &graph, &mut memo);
+    let p3 = paths("dac", "out", &graph, &mut memo);
+    let r2 = p1 * p2 * p3;
     println!("{}", r2);
 }
