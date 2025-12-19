@@ -3,3 +3,6 @@
 *.pyc
 target/
 Cargo.lock
+# Rust standalone binaries (numbered executables without extension)
+2025/[0-9]
+2025/[0-9][0-9]
